@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        main {
+            padding: 100px 0 0 0;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -38,7 +42,7 @@
             height: 100%;
             padding: 30px 0 0 0;
             background: grey;
-            transition: all 0.3s;
+            transition: all 0.5s ease-in-out;
         }
 
         .m-menu--active {
@@ -94,6 +98,31 @@
 <body>
 
     <i class="fas fa-bars open-m-menu"></i>
+    <main>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ad laboriosam possimus cupiditate, odit
+            ipsam quas odio quisquam ratione necessitatibus id nostrum quasi exercitationem? Architecto ad distinctio
+            velit possimus necessitatibus.Quas fuga impedit eligendi nesciunt necessitatibus harum a voluptas molestias
+            consequuntur itaque nostrum illo alias, blanditiis nam, fugit odio laudantium excepturi. Quasi, ullam.
+            Explicabo possimus amet esse! Doloribus, ratione accusantium!Repellat quod ipsum provident dignissimos
+            maiores! Provident, cum vitae consequuntur officiis architecto ipsum voluptatem maiores praesentium totam
+            amet recusandae fugit, molestias error. Voluptatem odio quibusdam tenetur dolore libero, provident
+            explicabo!Cumque aspernatur aut quos aperiam aliquam. Voluptates dolorum quia unde, optio vero, earum
+            molestiae architecto dolores at est alias pariatur magni minus incidunt nihil! Numquam error illum dolores
+            quam quisquam!Hic, dolore labore commodi totam fuga dignissimos cum assumenda aut nostrum eius veritatis
+            expedita placeat doloremque dolorem. Optio hic doloremque consequuntur praesentium aliquid eum. Sit
+            dignissimos exercitationem harum voluptas doloremque!Modi facilis molestiae ea rem amet possimus blanditiis
+            dolor exercitationem voluptatum porro iure nulla deserunt, perspiciatis cupiditate ipsam, voluptate tempore.
+            Magni, voluptatibus fugit! Molestiae voluptate sequi beatae aliquam fuga cupiditate.At aut saepe aspernatur,
+            fugit molestiae minima consectetur nam voluptatum. Minus temporibus quae consequatur fugit, aliquid, et
+            libero sapiente vero vitae recusandae consectetur tempora sit ipsa excepturi porro est ducimus?Officia,
+            sapiente quo, consequuntur itaque, delectus reiciendis veritatis rerum at optio facilis sequi sit molestiae
+            corrupti nostrum est numquam. Nam, cupiditate atque. Repudiandae at iusto assumenda aut repellat eum
+            maxime?Dolorem dignissimos quos, nesciunt ea eaque ipsum voluptate officia deleniti assumenda aliquam, ipsa
+            nobis totam molestias a veniam quasi distinctio earum natus quibusdam autem similique tempora dolores ad.
+            Accusamus, atque!Animi placeat quisquam, et ab dicta a officia fugiat nobis quis! Dolores non quos doloribus
+            aut dolorem sed fugit amet delectus qui? Praesentium exercitationem iste quia mollitia, dicta odio aliquam.
+        </div>
+    </main>
     <div class="m-menu">
         <ul class="m-menu__list m-menu--1level">
             <li class="m-menu__item"><span class="to-sub">+</span><a class="m-menu__link" href="">пункт 1</a>
@@ -132,8 +161,21 @@
             let openMenu = document.querySelector('.open-m-menu');
             let mMenu = document.querySelector('.m-menu');
 
-            openMenu.addEventListener('click', function () {
-                mMenu.classList.add('m-menu--active');
+            let toggleMenu = function () {
+                mMenu.classList.toggle('m-menu--active');
+            }
+
+            openMenu.addEventListener('click', function (e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            document.addEventListener('click', function (e) {
+                let target = e.target;
+                let itsMenu = target == mMenu || mMenu.contains(target);
+                let itsBtnMenu = target == openMenu;
+                let activeMenu = mMenu.classList.contains('m-menu--active');
+                if (!itsMenu && !itsBtnMenu && activeMenu) toggleMenu();
             });
 
             itemLi.forEach(item => {

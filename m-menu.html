@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Menu</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            margin: 0;
+            list-style: none;
+        }
+
+        .open-m-menu {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: block;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .m-menu {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            padding: 30px 0 0 0;
+            background: grey;
+            transition: all 0.3s;
+        }
+
+        .m-menu--active {
+            right: 0;
+        }
+
+        .m-menu__list {
+            text-align: right;
+        }
+
+        .m-menu__item {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid;
+        }
+
+        .m-menu__link {
+            display: block;
+            padding: 10px 10px 10px 0;
+        }
+
+        .m-menu__sublist {
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 99%;
+            height: 100%;
+            background-color: #FFF;
+            transition: all 0.3s;
+        }
+
+        .m-menu__sublist--active {
+            right: 0;
+        }
+
+        .back {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .to-sub {
+            display: block;
+            margin: 0 auto 0 0;
+            padding: 10px;
+            border: 1px solid;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <i class="fas fa-bars open-m-menu"></i>
+    <div class="m-menu">
+        <ul class="m-menu__list m-menu--1level">
+            <li class="m-menu__item"><span class="to-sub">+</span><a class="m-menu__link" href="">пункт 1</a>
+                <ul class="m-menu__sublist m-menu--2level">
+                    <li class="m-menu__item back">Назад</li>
+                    <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 1</a></li>
+                    <li class="m-menu__item"><span class="to-sub">+</span><a class="m-menu__link" href="">подпункт 2</a>
+                        <ul class="m-menu__sublist m-menu--3level">
+                            <li class="m-menu__item back">Назад</li>
+                            <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 1-10</a></li>
+                            <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 2-20</a></li>
+                            <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 3-30</a></li>
+                        </ul>
+                    </li>
+                    <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 3</a></li>
+                </ul>
+            </li>
+            <li class="m-menu__item"> <a class="m-menu__link" href="">пункт 2</a></li>
+            <li class="m-menu__item"><span class="to-sub">+</span><a class="m-menu__link" href="">пункт 3</a>
+                <ul class="m-menu__sublist m-menu--2level">
+                    <li class="m-menu__item back">Назад</li>
+                    <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 1-1</a></li>
+                    <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 2-2</a></li>
+                    <li class="m-menu__item"><a class="m-menu__link" href="">подпункт 3-3</a></li>
+                </ul>
+            </li>
+            <li class="m-menu__item"><a class="m-menu__link" href="">пункт 4</a></li>
+            <li class="m-menu__item"><a class="m-menu__link" href="">пункт 5</a></li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let itemLi = document.querySelectorAll('.m-menu__item');
+            let openMenu = document.querySelector('.open-m-menu');
+            let mMenu = document.querySelector('.m-menu');
+
+            openMenu.addEventListener('click', function () {
+                mMenu.classList.add('m-menu--active');
+            });
+
+            itemLi.forEach(item => {
+                let moreBtn = item.querySelector('.to-sub');
+                let submenu = item.querySelector('.m-menu__sublist');
+                let backMenu = item.querySelector('.back');
+                if (moreBtn != null) {
+                    moreBtn.addEventListener('click', function () {
+                        submenu.classList.add('m-menu__sublist--active');
+                    });
+                    backMenu.addEventListener('click', function () {
+                        submenu.classList.remove('m-menu__sublist--active');
+                    });
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
